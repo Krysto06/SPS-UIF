@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './hooks/useAuth';
 import LoginPage from './app/login/LoginPage';
 import DashboardPage from './app/dashboard/DashboardPage';
+import AdminPage from './app/admin/AdminPage';
 
 function Routage() {
   const { profil, chargement } = useAuth();
@@ -23,6 +24,16 @@ function Routage() {
       <Route
         path="/"
         element={profil ? <DashboardPage /> : <Navigate to="/connexion" replace />}
+      />
+      <Route
+        path="/admin"
+        element={
+          profil && profil.role === 'admin' ? (
+            <AdminPage />
+          ) : (
+            <Navigate to="/" replace />
+          )
+        }
       />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

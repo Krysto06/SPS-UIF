@@ -1,8 +1,10 @@
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { seDeconnecter } from '../../services/authService';
 
 export default function DashboardPage() {
   const { profil } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen bg-sky-100">
@@ -34,6 +36,16 @@ export default function DashboardPage() {
             Rôle :{' '}
             <span className="font-medium text-slate-700">{profil?.role}</span>
           </p>
+
+          {profil?.role === 'admin' && (
+            <button
+              onClick={() => navigate('/admin')}
+              className="mt-6 inline-block bg-blue-900 hover:bg-blue-800 text-yellow-400 font-semibold text-sm rounded-md px-5 py-2.5 transition"
+            >
+              Gestion des utilisateurs
+            </button>
+          )}
+
           <div className="mt-6 h-px bg-slate-200" />
           <p className="text-sm text-slate-500 mt-6">
             Les modules seront ajoutés ici progressivement.

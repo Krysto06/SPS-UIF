@@ -6,6 +6,7 @@ export interface Profil {
   nom: string
   prenom: string
   role: Role
+  titre: string | null
   doit_changer_code: boolean
   created_at: string
 }
