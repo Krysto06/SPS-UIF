@@ -7,7 +7,7 @@ export default function DashboardPage() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-sky-100">
+    <div className="min-h-screen bg-sky-100 flex flex-col">
       <header className="bg-blue-900 border-b-4 border-yellow-400">
         <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
           <div>
@@ -27,7 +27,7 @@ export default function DashboardPage() {
         </div>
       </header>
 
-      <main className="max-w-5xl mx-auto px-6 py-10">
+      <main className="flex-1 max-w-5xl w-full mx-auto px-6 py-10">
         <div className="bg-white rounded-lg shadow border-t-4 border-yellow-400 p-8">
           <h1 className="text-2xl font-semibold text-blue-900">
             Bienvenue, {profil?.prenom} {profil?.nom}
@@ -52,6 +52,17 @@ export default function DashboardPage() {
           </p>
         </div>
       </main>
+
+      <footer className="border-t border-sky-200 py-4">
+        <div className="max-w-5xl mx-auto px-6 flex items-center justify-center">
+          <button
+            onClick={() => navigate('/changer-code')}
+            className="text-xs text-slate-500 hover:text-blue-900 underline underline-offset-2 transition"
+          >
+            Changer mon code
+          </button>
+        </div>
+      </footer>
     </div>
   );
 }

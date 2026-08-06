@@ -3,6 +3,7 @@ import { AuthProvider, useAuth } from './hooks/useAuth';
 import LoginPage from './app/login/LoginPage';
 import DashboardPage from './app/dashboard/DashboardPage';
 import AdminPage from './app/admin/AdminPage';
+import ChangeCodePage from './app/changer-code/ChangeCodePage';
 
 function Routage() {
   const { profil, chargement } = useAuth();
@@ -15,24 +16,32 @@ function Routage() {
     );
   }
 
+  if (!profil) {
+    return (
+      <Routes>
+        <Route path="/connexion" element={<LoginPage />} />
+        <Route path="*" element={<Navigate to="/connexion" replace />} />
+      </Routes>
+    );
+  }
+
+  if (profil.doit_changer_code) {
+    return (
+      <Routes>
+        <Route path="/changer-code" element={<ChangeCodePage />} />
+        <Route path="*" element={<Navigate to="/changer-code" replace />} />
+      </Routes>
+    );
+  }
+
   return (
     <Routes>
-      <Route
-        path="/connexion"
-        element={profil ? <Navigate to="/" replace /> : <LoginPage />}
-      />
-      <Route
-        path="/"
-        element={profil ? <DashboardPage /> : <Navigate to="/connexion" replace />}
-      />
+      <Route path="/" element={<DashboardPage />} />
+      <Route path="/changer-code" element={<ChangeCodePage />} />
       <Route
         path="/admin"
         element={
-          profil && profil.role === 'admin' ? (
-            <AdminPage />
-          ) : (
-            <Navigate to="/" replace />
-          )
+          profil.role === 'admin' ? <AdminPage /> : <Navigate to="/" replace />
         }
       />
       <Route path="*" element={<Navigate to="/" replace />} />
