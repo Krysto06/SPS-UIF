@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './hooks/useAuth';
 import LoginPage from './app/login/LoginPage';
 import DashboardPage from './app/dashboard/DashboardPage';
+import CadrePerformancePage from './app/dashboard/CadrePerformancePage';
 import AdminPage from './app/admin/AdminPage';
 import ChangeCodePage from './app/changer-code/ChangeCodePage';
 
@@ -36,7 +37,12 @@ function Routage() {
 
   return (
     <Routes>
-      <Route path="/" element={<DashboardPage />} />
+      <Route
+        path="/"
+        element={
+          profil.role === 'cadre' ? <CadrePerformancePage /> : <DashboardPage />
+        }
+      />
       <Route path="/changer-code" element={<ChangeCodePage />} />
       <Route
         path="/admin"
